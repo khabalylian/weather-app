@@ -1,0 +1,40 @@
+
+.weather-days{
+    margin-top: 100px;
+    &__items{
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
+
+
+.item{
+    width: 150px;
+    height: 180px;
+    background-color: rgb(99, 97, 97);
+    border-radius: 10px;
+    opacity: 0.7;
+    &__day{
+        font-weight: 400;
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        margin-top: 8px;
+    }
+    &__weather{
+        padding: 10px;
+    }
+    &__weather-icon{
+        display: block;
+        width: 75px;
+        height: 75px;
+        margin: 0 auto;
+    }
+    &__temp{
+        display: flex;
+        justify-content: space-evenly;
+        font-size: 23px;
+        color: white;
+        padding: 10px;
+    }
+}

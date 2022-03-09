@@ -1,0 +1,110 @@
+
+.weather-hours{
+    margin-top: 100px;
+    &__items{
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+    &__item{
+        scroll-snap-align: start;
+        pointer-events: auto;
+    }
+    &__item + &__item{
+        margin-left: 5px;
+    }
+    ::-webkit-scrollbar{
+        width: 15px;
+    }
+    
+    ::-webkit-scrollbar-track{
+        background-color: #313131;
+    }
+    ::-webkit-scrollbar-thumb{
+        background-color: rgb(27, 27, 27);
+        border-radius: 8px;
+        border: 3px solid #313131;
+    }
+}
+
+.item-hours{
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+    height: 150px;
+    align-items: center;
+    background-color: rgb(99, 97, 97);
+    color: white;
+    border-radius: 10px;
+    opacity: 0.7;
+    cursor: pointer;
+    &__hours{
+        width: 60px;
+        height: 25px;
+        text-align: center;
+        padding-top: 5px;
+    }
+    &__temp{
+        position: relative;
+        font-size: 35px;
+        text-align: center;
+        padding-top: 25px;
+    }
+    &__temp span {
+        position: absolute;
+        font-size: 25px;
+    }
+    &__img{
+        display: flex;
+        justify-content: center;
+    }
+    &__weather-icon{
+        display: block;
+        width: 64px;
+        height: 64px;
+    }
+    &__span{
+        height: 100%;
+        width: 65px;
+        transform: rotate(-90deg) translate(-130%, 0%);
+        color: white;
+        white-space: nowrap;
+        //margin: auto;
+    }
+}
+
+
+.weather-more-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 320px;
+    height: 115px;
+    background-color: rgb(34, 34, 34);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+    &__block{
+        text-align: left;
+        width: 300px;
+        height: 95px;
+        background-color: #636161;
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px;
+        padding: 5px;
+        gap: 5px;
+    }
+    &__block span{
+        color: #302d2d;
+        font-weight: 600;
+        font-size: 18px;
+    }
+}
+
+.active{
+    background-color: black;
+    border-radius: 10px;
+    
+}

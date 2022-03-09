@@ -1,0 +1,15 @@
+@import './reset.scss';
+@import '../components/app/App.scss';
+@import '../components/weatherDays/weatherDays.scss';
+@import '../components/weatherHours/weatherHours.scss';
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color:rgb(49, 49, 49);
+}
