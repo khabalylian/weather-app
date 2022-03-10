@@ -1,43 +1,41 @@
-import useWeatherService from '../../service/WeatherService';
-import { useState, useEffect, useCallback, useMemo } from 'react';
+//import useWeatherService from '../../service/WeatherService';
+import CardMoreInfo from '../cardMoreInfo/CardMoreInfo';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchWeather, weatherActive, weatherInactive } from '../../slice/weatherSlice';
 
 const WeatherHours = () => {
-    const {getWeatherHourse} = useWeatherService();
+    const dispatch = useDispatch();
 
-    const [weatherHours, setWeatherHours] = useState([]);
-    const [moreInfo, setMoreInfo] = useState({});
+    const {weather, viewComp} = useSelector(state => state.weather);
 
     useEffect(() => {
-
-        getWeatherHourse()
-            .then(setWeather)
+        dispatch(fetchWeather());
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         setTextBeforeItem();
-    }, [weatherHours])
+    }, [weather])
 
-    // useEffect(() => {
-    //     setActiveItem();
-    // }, [weatherHours, moreInfo])
 
-    const setActiveItem = (e, item) => {
+    const setActiveItem = (e) => {
+
         const parent = e.closest('.weather-hours__item');
         const targetActive = parent.querySelector('.item-hours__hours');
         const arrActiveEl = document.querySelectorAll('.active');
 
         if(targetActive.classList.contains('active')){
             targetActive.classList.remove('active');
-            setMoreInfo({})
+            dispatch(weatherInactive());
         }else{
             targetActive.classList.add('active');
-            setMoreInfo(item);
         }
 
         arrActiveEl.forEach(item => item.classList.remove('active'));
     }
 
-    console.log('hours');
+    
     const setTextBeforeItem = () => {
         const arrHoursItem = document.querySelectorAll('.item-hours__hours');
         let text = 'Завтра';
@@ -60,19 +58,13 @@ const WeatherHours = () => {
         }) 
     }
 
-
-    const setWeather = (arrWeather) => {
-        //setMoreInfo(arrWeather[1]);
-        setWeatherHours(arrWeather);
-    }
-
     const renderItem = (arr) => {
         const items = arr.map((item, index) => {
             let {hours, temp, icon} = item;
             const src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+
             if(index === 0) return false;
             
-
             if(hours < 10){
                 hours = `0${hours}`;
             }
@@ -81,7 +73,11 @@ const WeatherHours = () => {
                 <div 
                     key={index} 
                     className="item-hours weather-hours__item"
-                    onClick={(e) => setActiveItem(e.target, item) }>
+                    onClick={(e) => {
+                        dispatch(weatherActive(item));
+                        setActiveItem(e.target);
+                    }}
+                    >
                     <p className="item-hours__hours">{hours}:00</p>
                     <p className="item-hours__temp">{temp}<span>°</span></p>
                     <div className="item-hours__img">
@@ -97,20 +93,10 @@ const WeatherHours = () => {
             </div>
         )
     }
-    const renderMoreInfo = (objectInfo) => {
-        const {pressure, humidity, windSpeed, windGust} = objectInfo;
-        return (
-            <div className="weather-more-info__block">
-                <p className="weather-more-info__pressure">Тиск: <span>{pressure} мм</span></p>
-                <p className="weather-more-info__humidity">Вологість: <span>{humidity}%</span></p>
-                <p className="weather-more-info__windSpeed">Помірний вітер: <span>({windSpeed} м/с)</span></p>
-                <p className="weather-more-info__windGust">Пориви вітру: <span>({windGust} м/с)</span></p>
-            </div>
-        )
-    };
+    
 
-    const weatherHoursItem = renderItem(weatherHours);
-    const weatherMoreInfo = JSON.stringify(moreInfo) !== '{}' ? renderMoreInfo(moreInfo) : <span>Виберіть годину для детальнішої інформації</span>;
+    const weatherHoursItem = renderItem(weather)
+    const weatherMoreInfo = viewComp ?  <CardMoreInfo/> : <span>Виберіть годину для детальнішої інформації</span>
 
     return (
         <div className="weather-hours">

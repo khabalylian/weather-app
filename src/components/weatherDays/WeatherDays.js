@@ -10,13 +10,13 @@ const WeatherDays = () => {
     useEffect(() => {
         getWeatherDay()
             .then(setWeather)
-
+        // eslint-disable-next-line
     }, [])
 
     const setWeather = (arrWeather) => {
         setWeatherDay(arrWeather)
     }
-    console.log('day');
+
     const renderItem = (arr) => {
         const items = arr.map((item, index) => {
             let {day, icon, tempMin, tempMax} = item;
