@@ -1,0 +1,41 @@
+
+
+.weather-now{
+    width: 250px;
+    height: 100px;
+    background-color: #636161;
+    margin: 50px auto;
+    border-radius: 10px;
+    &__block {
+        display: flex;
+        justify-content: space-around;
+    }
+    .block{
+        &__container{
+            display: flex;
+            height: 100px;
+            width: 60%;
+            text-align: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+        }
+        &__text{
+            font-size: 20px;
+        }
+        &__city{
+            display: inline-block;
+            font-weight: 600;
+            font-size: 40px;
+            text-align: right;
+            background-image: url('../../resources/navigation1.svg');
+            background-repeat: no-repeat;
+            background-position-y: center;
+            background-size: 32px 32px;
+        }
+        &__temp{
+            font-weight: 600;
+            font-size: 45px;
+            margin: auto;
+        }
+    }
+}

@@ -16,7 +16,7 @@ const WeatherDays = () => {
     const setWeather = (arrWeather) => {
         setWeatherDay(arrWeather)
     }
-
+    
     const renderItem = (arr) => {
         const items = arr.map((item, index) => {
             let {day, icon, tempMin, tempMax} = item;

@@ -1,16 +1,16 @@
-//import useWeatherService from '../../service/WeatherService';
 import CardMoreInfo from '../cardMoreInfo/CardMoreInfo';
-import { useEffect } from 'react';
+import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchWeather, weatherActive, weatherInactive } from '../../slice/weatherSlice';
+import { fetchWeatherHours, weatherActive, weatherInactive } from '../../slice/weatherSlice';
 
 const WeatherHours = () => {
     const dispatch = useDispatch();
 
-    const {weather, viewComp} = useSelector(state => state.weather);
+    const weather = useSelector(state => state.weather.weather);
+    const viewComp = useSelector(state => state.weather.viewComp);
 
     useEffect(() => {
-        dispatch(fetchWeather());
+        dispatch(fetchWeatherHours());
         // eslint-disable-next-line
     }, [])
 
@@ -34,7 +34,6 @@ const WeatherHours = () => {
 
         arrActiveEl.forEach(item => item.classList.remove('active'));
     }
-
     
     const setTextBeforeItem = () => {
         const arrHoursItem = document.querySelectorAll('.item-hours__hours');
@@ -94,7 +93,6 @@ const WeatherHours = () => {
         )
     }
     
-
     const weatherHoursItem = renderItem(weather)
     const weatherMoreInfo = viewComp ?  <CardMoreInfo/> : <span>Виберіть годину для детальнішої інформації</span>
 

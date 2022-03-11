@@ -4,21 +4,31 @@ import useWeatherService from '../service/WeatherService';
 
 const initialState = {
     weather: [],
+    weatherNow: {},
     activeItem: {},
     viewComp: false,
     targetEl: ''
 }
 
-export const fetchWeather = createAsyncThunk(
-    'heroes/fetchWeather',
+export const fetchWeatherHours = createAsyncThunk(
+    'weather/fetchWeatherHours',
     async () => {
         const {getWeatherHourse} = useWeatherService();
 
-        return await getWeatherHourse()
+        return await getWeatherHourse();
         
     }
 )
 
+export const fetchWeatherNow = createAsyncThunk(
+    'weather/fetchWeatherNow',
+    async () => {
+        const {getWeatherHourse} = useWeatherService();
+        const res = await getWeatherHourse();
+        return res[0];
+        
+    }
+)
 
 const weatherSlice = createSlice({
     name: 'weather',
@@ -34,11 +44,13 @@ const weatherSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder 
-            .addCase(fetchWeather.pending, (state) => {})
-            .addCase(fetchWeather.fulfilled, (state, action) => {
+            .addCase(fetchWeatherHours.fulfilled, (state, action) => {
                 state.weather = action.payload;
             })
-            .addCase(fetchWeather.rejected, (state) => {})
+        builder
+            .addCase(fetchWeatherNow.fulfilled, (state, action) => {
+                state.weatherNow = action.payload;
+            })
     }
 })
 
