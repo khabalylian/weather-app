@@ -2,12 +2,15 @@ import CardMoreInfo from '../cardMoreInfo/CardMoreInfo';
 import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWeatherHours, weatherActive, weatherInactive } from '../../slice/weatherSlice';
+import Spinner from '../spinner/Spinner';
+import Error from '../error/Error';
 
 const WeatherHours = () => {
     const dispatch = useDispatch();
 
-    const weather = useSelector(state => state.weather.weather);
+    const weatherHours = useSelector(state => state.weather.weatherHours);
     const viewComp = useSelector(state => state.weather.viewComp);
+    const hoursLoadingStatus = useSelector(state => state.weather.hoursLoadingStatus);
 
     useEffect(() => {
         dispatch(fetchWeatherHours());
@@ -16,7 +19,7 @@ const WeatherHours = () => {
 
     useEffect(() => {
         setTextBeforeItem();
-    }, [weather])
+    }, [weatherHours])
 
 
     const setActiveItem = (e) => {
@@ -93,12 +96,14 @@ const WeatherHours = () => {
         )
     }
     
-    const weatherHoursItem = renderItem(weather)
-    const weatherMoreInfo = viewComp ?  <CardMoreInfo/> : <span>Виберіть годину для детальнішої інформації</span>
+    const weatherHoursItem = hoursLoadingStatus === 'loading' ? <Spinner/> : renderItem(weatherHours); 
+    const weatherHoursError = hoursLoadingStatus === 'error' ? <Error/> : null;
+    const weatherMoreInfo = viewComp ?  <CardMoreInfo/> : <span>Виберіть годину для детальнішої інформації</span>;
 
     return (
         <div className="weather-hours">
             <div className="weather-hours__container">
+                {weatherHoursError}
                 {weatherHoursItem}
                 <div className="weather-more-info">
                     {weatherMoreInfo}

@@ -6,6 +6,8 @@
     background-color: #636161;
     margin: 50px auto;
     border-radius: 10px;
+    color: white;
+    opacity: 0.7;
     &__block {
         display: flex;
         justify-content: space-around;
@@ -27,7 +29,7 @@
             font-weight: 600;
             font-size: 40px;
             text-align: right;
-            background-image: url('../../resources/navigation1.svg');
+            background-image: url('../../resources/navigation.svg');
             background-repeat: no-repeat;
             background-position-y: center;
             background-size: 32px 32px;
@@ -36,6 +38,10 @@
             font-weight: 600;
             font-size: 45px;
             margin: auto;
+        }
+        &__temp span{
+            position: absolute;
+            font-size: 30px;
         }
     }
 }

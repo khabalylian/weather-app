@@ -3,12 +3,24 @@ import useWeatherService from '../service/WeatherService';
 
 
 const initialState = {
-    weather: [],
+    weatherDay: [],
+    weatherHours: [],
     weatherNow: {},
     activeItem: {},
+    dayLoadingStatus: 'idle',
+    hoursLoadingStatus: 'idle',
     viewComp: false,
-    targetEl: ''
 }
+
+export const fetchWeatherDays = createAsyncThunk(
+    'weather/fetchWeatherDays',
+    async () => {
+        const {getWeatherDay} = useWeatherService();
+
+        return await getWeatherDay();
+        
+    }
+)
 
 export const fetchWeatherHours = createAsyncThunk(
     'weather/fetchWeatherHours',
@@ -44,12 +56,30 @@ const weatherSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder 
+            .addCase(fetchWeatherHours.pending, (state, action) => {
+                state.hoursLoadingStatus = 'loading';
+            })
             .addCase(fetchWeatherHours.fulfilled, (state, action) => {
-                state.weather = action.payload;
+                state.weatherHours = action.payload;
+                state.hoursLoadingStatus = 'idle';
+            })
+            .addCase(fetchWeatherHours.rejected, (state, action) => {
+                state.hoursLoadingStatus = 'error';
             })
         builder
             .addCase(fetchWeatherNow.fulfilled, (state, action) => {
                 state.weatherNow = action.payload;
+            })
+        builder
+            .addCase(fetchWeatherDays.pending, (state, action) => {
+                state.dayLoadingStatus = 'loading';
+            })
+            .addCase(fetchWeatherDays.fulfilled, (state, action) => {
+                state.weatherDay = action.payload;
+                state.dayLoadingStatus = 'idle';
+            })
+            .addCase(fetchWeatherDays.rejected, (state, action) => {
+                state.dayLoadingStatus = 'error';
             })
     }
 })

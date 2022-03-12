@@ -1,21 +1,19 @@
-import useWeatherService from "../../service/WeatherService";
-import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { fetchWeatherDays } from "../../slice/weatherSlice";
+import Spinner from "../spinner/Spinner";
+import Error from "../error/Error";
 
 const WeatherDays = () => {
-    const {getWeatherDay} = useWeatherService();
-
-    const [weatherDay, setWeatherDay] = useState([]);
-
+    const dispatch = useDispatch();
+    const weatherDay = useSelector(state => state.weather.weatherDay);
+    const dayLoadingStatus = useSelector(state => state.weather.dayLoadingStatus);
 
     useEffect(() => {
-        getWeatherDay()
-            .then(setWeather)
+        dispatch(fetchWeatherDays());
         // eslint-disable-next-line
     }, [])
 
-    const setWeather = (arrWeather) => {
-        setWeatherDay(arrWeather)
-    }
     
     const renderItem = (arr) => {
         const items = arr.map((item, index) => {
@@ -52,10 +50,13 @@ const WeatherDays = () => {
         )
     }
     
-    const weatherItems = renderItem(weatherDay)
+    const weatherItems = dayLoadingStatus === 'loading' ? <Spinner/> : renderItem(weatherDay);
+    const error = dayLoadingStatus === 'error' ? <Error/> : null;
+
     return (
         <div className="weather-days">
             <div className="weather-days__container">
+                {error}
                 {weatherItems}
             </div>
         </div>
