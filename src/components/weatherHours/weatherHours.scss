@@ -73,38 +73,11 @@
     }
 }
 
+.example-enter {
+    opacity: 0.01;
+}
 
-// .weather-more-info{
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: 320px;
-//     height: 115px;
-//     background-color: rgb(34, 34, 34);
-//     border-radius: 8px;
-//     color: white;
-//     text-align: center;
-//     margin-top: 30px;
-//     &__block{
-//         text-align: left;
-//         width: 300px;
-//         height: 95px;
-//         background-color: #636161;
-//         display: flex;
-//         flex-direction: column;
-//         border-radius: 8px;
-//         padding: 5px;
-//         gap: 5px;
-//     }
-//     &__block span{
-//         color: #302d2d;
-//         font-weight: 600;
-//         font-size: 18px;
-//     }
-// }
-
-// .active{
-//     background-color: black;
-//     border-radius: 10px;
-    
-// }
+.example-enter-active {
+    opacity: 1;
+    transition: opacity .5s ease-in;
+}

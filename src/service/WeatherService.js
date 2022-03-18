@@ -3,16 +3,17 @@ import { useHttp } from "../hooks.js/http.hook";
 const useWeatherService = () => {
     const _apiKey = '8a2b72db8de4e93b0c8619d5fb894f1a';
     const {request} = useHttp();
-    const arrDayOfWeek = ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"]
+    const arrDayOfWeek = ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"];
 
-    const getWeatherDay = async () => {
-        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=49.8358&lon=24.0193&exclude=minutely&appid=${_apiKey}`);
+
+    const getWeatherDay = async (cord) => {
+        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=${cord[0]}&lon=${cord[1]}&exclude=minutely&appid=${_apiKey}`);
 
         return res.daily.map(_transformWeatherDay);
     }
 
-    const getWeatherHourse = async () => {
-        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=49.8358&lon=24.0193&exclude=minutely&appid=${_apiKey}`);
+    const getWeatherHourse = async (cord) => {
+        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=${cord[0]}&lon=${cord[1]}&exclude=minutely&appid=${_apiKey}`);
 
         return res.hourly.map(_transformWeatherHourly);
     }

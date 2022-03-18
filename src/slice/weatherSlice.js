@@ -1,42 +1,29 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import useWeatherService from '../service/WeatherService';
 
-
 const initialState = {
     weatherDay: [],
-    weatherHours: [],
     weatherNow: {},
-    activeItem: {},
+    weatherCordCity: ['49.8358', '24.0193'],
     dayLoadingStatus: 'idle',
-    hoursLoadingStatus: 'idle',
-    viewComp: false,
+    nowLoadingStatus: 'idle',
 }
 
 export const fetchWeatherDays = createAsyncThunk(
     'weather/fetchWeatherDays',
-    async () => {
+    async (cord) => {
         const {getWeatherDay} = useWeatherService();
 
-        return await getWeatherDay();
-        
-    }
-)
-
-export const fetchWeatherHours = createAsyncThunk(
-    'weather/fetchWeatherHours',
-    async () => {
-        const {getWeatherHourse} = useWeatherService();
-
-        return await getWeatherHourse();
+        return await getWeatherDay(cord);
         
     }
 )
 
 export const fetchWeatherNow = createAsyncThunk(
     'weather/fetchWeatherNow',
-    async () => {
+    async (cord) => {
         const {getWeatherHourse} = useWeatherService();
-        const res = await getWeatherHourse();
+        const res = await getWeatherHourse(cord);
         return res[0];
         
     }
@@ -46,29 +33,21 @@ const weatherSlice = createSlice({
     name: 'weather',
     initialState,
     reducers: {
-        weatherActive: (state, action) => {
-            state.activeItem = action.payload;
-            state.viewComp = true;
-        },
-        weatherInactive: (state) => {
-            state.viewComp = false
+        weatherCord: (state, action) => {
+            state.weatherCordCity = action.payload;
         }
     },
     extraReducers: (builder) => {
-        builder 
-            .addCase(fetchWeatherHours.pending, (state, action) => {
-                state.hoursLoadingStatus = 'loading';
-            })
-            .addCase(fetchWeatherHours.fulfilled, (state, action) => {
-                state.weatherHours = action.payload;
-                state.hoursLoadingStatus = 'idle';
-            })
-            .addCase(fetchWeatherHours.rejected, (state, action) => {
-                state.hoursLoadingStatus = 'error';
-            })
         builder
+            .addCase(fetchWeatherNow.pending, (state, action) => {
+                state.nowLoadingStatus = 'loading';
+            })
             .addCase(fetchWeatherNow.fulfilled, (state, action) => {
                 state.weatherNow = action.payload;
+                state.nowLoadingStatus = 'idle';
+            })
+            .addCase(fetchWeatherNow.rejected, (state, action) => {
+                state.nowLoadingStatus = 'error';
             })
         builder
             .addCase(fetchWeatherDays.pending, (state, action) => {
@@ -90,6 +69,5 @@ const {actions, reducer} = weatherSlice;
 export default reducer;
 
 export const {
-    weatherActive,
-    weatherInactive,
+    weatherCord
 } = actions;

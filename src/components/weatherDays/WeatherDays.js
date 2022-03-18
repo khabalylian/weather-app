@@ -8,21 +8,20 @@ const WeatherDays = () => {
     const dispatch = useDispatch();
     const weatherDay = useSelector(state => state.weather.weatherDay);
     const dayLoadingStatus = useSelector(state => state.weather.dayLoadingStatus);
-
-    useEffect(() => {
-        dispatch(fetchWeatherDays());
-        // eslint-disable-next-line
-    }, [])
-
+    const weatherCordCity = useSelector(state => state.weather.weatherCordCity);
     
+    useEffect(() => {
+        dispatch(fetchWeatherDays(weatherCordCity));
+        // eslint-disable-next-line
+    }, [weatherCordCity])
+
     const renderItem = (arr) => {
         const items = arr.map((item, index) => {
             let {day, icon, tempMin, tempMax} = item;
             const src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-            if(index === 0){
-                day = 'Сьогодні';
-            }
+            if(index === 0)day = 'Сьогодні';
+            else if (index === 1) day = 'Завтра';
 
             return (
                 <div key={index} className="item weather-days__item">

@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import weather from '../slice/weatherSlice';
+import hours from '../slice/weatherHoursSlice';
 
 const stringMiddleware = () => (next) => (action) => {
     if (typeof action === 'string') {
@@ -11,7 +12,7 @@ const stringMiddleware = () => (next) => (action) => {
 };
 
 const store = configureStore({
-    reducer: {weather},
+    reducer: {weather,hours},
     middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck: false,
     stringMiddleware}),
     devTools: process.env.NODE_ENV !== 'production'

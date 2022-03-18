@@ -25,6 +25,11 @@
         font-weight: 600;
         font-size: 18px;
     }
+    &_position{
+        display: flex;
+        justify-content: space-between;
+        padding-right: 30px;
+    }
 }
 
 .active{

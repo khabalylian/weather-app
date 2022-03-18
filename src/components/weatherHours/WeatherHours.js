@@ -1,40 +1,39 @@
 import CardMoreInfo from '../cardMoreInfo/CardMoreInfo';
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchWeatherHours, weatherActive, weatherInactive } from '../../slice/weatherSlice';
+import { fetchWeatherHours, weatherActive, weatherInactive } from '../../slice/weatherHoursSlice';
+import { CSSTransition } from 'react-transition-group';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
 
 const WeatherHours = () => {
     const dispatch = useDispatch();
 
-    const weatherHours = useSelector(state => state.weather.weatherHours);
-    const viewComp = useSelector(state => state.weather.viewComp);
-    const hoursLoadingStatus = useSelector(state => state.weather.hoursLoadingStatus);
-
+    const weatherHours = useSelector(state => state.hours.weatherHours);
+    const viewComp = useSelector(state => state.hours.viewComp);
+    const hoursLoadingStatus = useSelector(state => state.hours.hoursLoadingStatus);
+    const weatherCordCity = useSelector(state => state.weather.weatherCordCity);
+    
     useEffect(() => {
-        dispatch(fetchWeatherHours());
+        dispatch(fetchWeatherHours(weatherCordCity));
         // eslint-disable-next-line
-    }, [])
+    }, [weatherCordCity])
 
     useEffect(() => {
         setTextBeforeItem();
     }, [weatherHours])
 
-
-    const setActiveItem = (e) => {
-
+    const setActiveItem = (e, item) => {
         const parent = e.closest('.weather-hours__item');
         const targetActive = parent.querySelector('.item-hours__hours');
         const arrActiveEl = document.querySelectorAll('.active');
-
         if(targetActive.classList.contains('active')){
             targetActive.classList.remove('active');
             dispatch(weatherInactive());
         }else{
             targetActive.classList.add('active');
+            dispatch(weatherActive(item));
         }
-
         arrActiveEl.forEach(item => item.classList.remove('active'));
     }
     
@@ -75,10 +74,7 @@ const WeatherHours = () => {
                 <div 
                     key={index} 
                     className="item-hours weather-hours__item"
-                    onClick={(e) => {
-                        dispatch(weatherActive(item));
-                        setActiveItem(e.target);
-                    }}
+                    onClick={(e) => setActiveItem(e.target, item)}
                     >
                     <p className="item-hours__hours">{hours}:00</p>
                     <p className="item-hours__temp">{temp}<span>°</span></p>
@@ -98,7 +94,7 @@ const WeatherHours = () => {
     
     const weatherHoursItem = hoursLoadingStatus === 'loading' ? <Spinner/> : renderItem(weatherHours); 
     const weatherHoursError = hoursLoadingStatus === 'error' ? <Error/> : null;
-    const weatherMoreInfo = viewComp ?  <CardMoreInfo/> : <span>Виберіть годину для детальнішої інформації</span>;
+    const weatherMoreInfo = viewComp ? <CardMoreInfo/> : <span>Виберіть годину для детальнішої інформації</span>;
 
     return (
         <div className="weather-hours">
@@ -106,7 +102,14 @@ const WeatherHours = () => {
                 {weatherHoursError}
                 {weatherHoursItem}
                 <div className="weather-more-info">
-                    {weatherMoreInfo}
+                    <CSSTransition
+                        in={viewComp}
+                        classNames="example"
+                        timeout={1000}>
+                        <div className="div">
+                            {weatherHoursError || weatherMoreInfo}
+                        </div>
+                    </CSSTransition>
                 </div>
             </div>
         </div>
