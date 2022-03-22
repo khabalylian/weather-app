@@ -7,13 +7,13 @@ const useWeatherService = () => {
 
 
     const getWeatherDay = async (cord) => {
-        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=${cord[0]}&lon=${cord[1]}&exclude=minutely&appid=${_apiKey}`);
+        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=${cord['lat']}&lon=${cord['lon']}&exclude=minutely&appid=${_apiKey}`);
 
         return res.daily.map(_transformWeatherDay);
     }
 
     const getWeatherHourse = async (cord) => {
-        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=${cord[0]}&lon=${cord[1]}&exclude=minutely&appid=${_apiKey}`);
+        const res = await request(`https://api.openweathermap.org/data/2.5/onecall?lat=${cord['lat']}&lon=${cord['lon']}&exclude=minutely&appid=${_apiKey}`);
 
         return res.hourly.map(_transformWeatherHourly);
     }

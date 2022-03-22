@@ -12,6 +12,7 @@ const initialState = {
 export const fetchWeatherHours = createAsyncThunk(
     'hours/fetchWeatherHours',
     async (cord) => {
+        cord = JSON.parse(cord);
         const {getWeatherHourse} = useWeatherService();
 
         return await getWeatherHourse(cord);

@@ -37,4 +37,18 @@
         color: white;
         padding: 10px;
     }
+    &__temp-min{
+        display: flex;
+        align-items: center;
+    }
+    &__temp-max{
+        display: flex;
+        align-items: center;
+    }
+    &__temp-min svg{
+        margin-right: 5px;
+    }
+    &__temp-max svg{
+        margin-right: 5px;
+    }
 }

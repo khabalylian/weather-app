@@ -15,7 +15,6 @@
         height: 32px;
         text-align: center;
         font-size: 22px;
-        margin-left: 10px;
     }
     &__block {
         display: flex;
@@ -35,11 +34,7 @@
         }
         &__city{
             display: flex;
-            justify-content: center;
-            background-image: url('../../resources/navigation.svg');
-            background-repeat: no-repeat;
-            background-position-y: center;
-            background-size: 32px 32px;
+            align-items: center;
         }
         &__temp{
             font-weight: 600;

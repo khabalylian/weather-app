@@ -12,12 +12,12 @@ const WeatherHours = () => {
     const weatherHours = useSelector(state => state.hours.weatherHours);
     const viewComp = useSelector(state => state.hours.viewComp);
     const hoursLoadingStatus = useSelector(state => state.hours.hoursLoadingStatus);
-    const weatherCordCity = useSelector(state => state.weather.weatherCordCity);
+    const weatherCordCheak = useSelector(state => state.weather.weatherCordCheak);
     
     useEffect(() => {
-        dispatch(fetchWeatherHours(weatherCordCity));
+        dispatch(fetchWeatherHours(localStorage.getItem('Cord')));
         // eslint-disable-next-line
-    }, [weatherCordCity])
+    }, [weatherCordCheak])
 
     useEffect(() => {
         setTextBeforeItem();

@@ -4,7 +4,17 @@ import useWeatherService from '../service/WeatherService';
 const initialState = {
     weatherDay: [],
     weatherNow: {},
-    weatherCordCity: ['49.8358', '24.0193'],
+    weatherCordCheak: false,
+    weatherCity: {
+        'Lviv' : {
+            lat: 49.8382600,
+            lon: 24.0232400,
+        },
+        'Kiev' : {
+            lat: 50.4546600,
+            lon: 30.5238000,
+        }
+    },
     dayLoadingStatus: 'idle',
     nowLoadingStatus: 'idle',
 }
@@ -12,16 +22,17 @@ const initialState = {
 export const fetchWeatherDays = createAsyncThunk(
     'weather/fetchWeatherDays',
     async (cord) => {
+        cord = JSON.parse(cord);
         const {getWeatherDay} = useWeatherService();
 
-        return await getWeatherDay(cord);
-        
+        return await getWeatherDay(cord);    
     }
 )
 
 export const fetchWeatherNow = createAsyncThunk(
     'weather/fetchWeatherNow',
     async (cord) => {
+        cord = JSON.parse(cord);
         const {getWeatherHourse} = useWeatherService();
         const res = await getWeatherHourse(cord);
         return res[0];
@@ -34,7 +45,7 @@ const weatherSlice = createSlice({
     initialState,
     reducers: {
         weatherCord: (state, action) => {
-            state.weatherCordCity = action.payload;
+            state.weatherCordCheak = action.payload;
         }
     },
     extraReducers: (builder) => {
