@@ -46,7 +46,7 @@ const WeatherDays = () => {
                             </svg>
                             <span>{tempMax}°</span>
                         </div>
-                        |
+                        <span className="item__row">|</span>
                         <div className="item__temp-min">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

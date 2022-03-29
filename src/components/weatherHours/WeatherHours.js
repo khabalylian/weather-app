@@ -20,8 +20,9 @@ const WeatherHours = () => {
     }, [weatherCordCheak])
 
     useEffect(() => {
+        removeTextBeforeItem();
         setTextBeforeItem();
-    }, [weatherHours])
+    }, [weatherHours]);
 
     const setActiveItem = (e, item) => {
         const parent = e.closest('.weather-hours__item');
@@ -35,6 +36,14 @@ const WeatherHours = () => {
             dispatch(weatherActive(item));
         }
         arrActiveEl.forEach(item => item.classList.remove('active'));
+    }
+
+    const removeTextBeforeItem = () => {
+        const arrSpan = document.querySelectorAll('.item-hours__span');
+
+        arrSpan.forEach(item => {
+            item.remove();
+        })
     }
     
     const setTextBeforeItem = () => {

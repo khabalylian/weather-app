@@ -5,13 +5,181 @@
 @import '../components/cardMoreInfo/cardMoreInfo.scss';
 @import '../components/weatherNow/weatherNow.scss';
 
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body{
     font-family: 'Montserrat', sans-serif;
     background-color:rgb(49, 49, 49);
+}
+
+
+@media screen and (max-width: 1199px){
+    .weather-days{
+        &__item{
+            width: 115px;
+            height: 170px;
+        }
+        &__temp{
+            padding: 10px 5px;
+        }
+        .item {
+            &__day{
+                font-size: 19px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 991px){
+    .weather-days{
+        &__item{
+            min-width: 125px;
+            height: 170px;
+        }
+        &__items{
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            justify-content:start;
+            flex-wrap: nowrap;
+            gap: 10px;
+        }
+        ::-webkit-scrollbar{
+            width: 15px;
+        }
+        
+        ::-webkit-scrollbar-track{
+            background-color: #313131;
+        }
+        ::-webkit-scrollbar-thumb{
+            background-color: rgb(27, 27, 27);
+            border-radius: 8px;
+            border: 3px solid #313131;
+        }
+    }
+}
+
+@media screen and (max-width: 767px){
+    .weather-days{
+        margin-top: 75px;
+        &__item{
+            min-width: 115px;
+            height: 150px; 
+        }
+        &__items{
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            justify-content:start;
+            flex-wrap: nowrap;
+            gap: 10px;
+        }
+        .item{
+            &__temp{
+                font-size: 20px;
+                padding: 0;
+            }
+            &__weather-icon{
+                width: 70px;
+                height: 70px;
+            }
+        }
+    }
+    .weather-hours{
+        margin-top: 75px;
+        .item-hours{
+            justify-content: space-between;
+            min-width: 90px;
+            height: 135px;
+            &__temp{
+                padding-top: 15px;
+            }
+            &__weather-icon{
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+    .weather-more-info{
+        margin: 30px auto 0 auto;
+    }
+}
+
+@media screen and (max-width: 575px){
+    .weather{
+        padding: 40px 10px;
+    }
+    .weather-days{
+        margin-top: 60px;
+        &__item{
+            min-width: 85px;
+            height: 150px; 
+        }
+        .item{
+            &__temp{
+                flex-direction: column;
+                align-items: center;
+                font-size: 19px;
+            }
+            &__temp-max{
+                margin-bottom: 5px;
+            }
+            &__row{
+                display: none;
+            }
+            &__weather{
+                padding: 6px;
+            }
+            &__weather-icon{
+                width: 60px;
+                height: 60px;
+            }
+            &__day{
+                font-size: 16px;
+            }
+        }
+    }
+    .weather-now{
+        width: 220px;
+        height: 85px;
+        &__select{
+            width: 80px;
+            height: 30px;
+            font-size: 20px;
+        }
+        .block{
+            &__temp{
+                font-size: 39px;
+            }
+            &__container{
+                height: 85px;
+                justify-content: space-around;
+            }
+        }
+    }
+    .weather-hours{
+        margin-top: 60px;
+        .weather-more-info{
+            width: 290px;
+            height: 100px;
+            margin: 30px auto 0 auto;
+            &__block{
+                width: 275px;
+                height: 85px;
+            }
+            &__block span{
+                font-size: 15px;
+            }
+            &_position{
+                font-size: 15px;
+            }
+        }
+        .item-hours{
+            min-width: 75px;
+            &__span{
+                font-size: 12px;
+                letter-spacing: 0.1rem;
+                transform: rotate(-90deg) translate(-110%, 0%);
+            }
+            &__hours{
+                width: 100%;
+            }
+        }
+    }
 }

@@ -4,12 +4,14 @@
     &__items{
         display: flex;
         justify-content: space-evenly;
+        flex-wrap: wrap;
+        gap: 5px;
     }
 }
 
 
 .item{
-    width: 150px;
+    width: 140px;
     height: 180px;
     background-color: rgb(99, 97, 97);
     border-radius: 10px;

@@ -61,7 +61,7 @@ const WeatherNow = () => {
 
     return (
         <div className="weather-now">
-            <div className="block__container">
+            <div className="block block__container">
                 <p className="block__text">Зараз</p>
                 <div className="block__city">
                     <svg 
